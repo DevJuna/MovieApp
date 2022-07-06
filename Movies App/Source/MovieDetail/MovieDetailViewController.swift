@@ -1,19 +1,19 @@
 //
-//  ViewController.swift
+//  MovieDetailViewController.swift
 //  Movies App
 //
 //  Created by Juleanny Navas Moreno on 05/07/2022.
 //
 
+import Foundation
 import UIKit
 
-class ViewController: UIViewController {
-
+class MovieDetailViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        view.backgroundColor = .red
     }
-
-
+    
 }
-
