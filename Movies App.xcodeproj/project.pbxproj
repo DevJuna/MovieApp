@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44AAC96E287D018A004279BB /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAC96C287D018A004279BB /* MovieCell.swift */; };
+		44AAC96F287D018A004279BB /* MovieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44AAC96D287D018A004279BB /* MovieCell.xib */; };
 		44D64513287507CC00B1CCFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D64512287507CC00B1CCFA /* AppDelegate.swift */; };
 		44D64515287507CC00B1CCFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D64514287507CC00B1CCFA /* SceneDelegate.swift */; };
 		44D6451C287507CE00B1CCFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D6451B287507CE00B1CCFA /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44AAC96C287D018A004279BB /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		44AAC96D287D018A004279BB /* MovieCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCell.xib; sourceTree = "<group>"; };
 		44D6450F287507CC00B1CCFA /* Movies App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movies App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44D64512287507CC00B1CCFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44D64514287507CC00B1CCFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				44D6453E287511DB00B1CCFA /* MovieListViewController.swift */,
 				44D64541287511EB00B1CCFA /* MovieListViewModel.swift */,
 				44D64544287511F600B1CCFA /* MovieListView.xib */,
+				44AAC96C287D018A004279BB /* MovieCell.swift */,
+				44AAC96D287D018A004279BB /* MovieCell.xib */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
@@ -193,6 +199,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44AAC96F287D018A004279BB /* MovieCell.xib in Resources */,
 				44D6451F287507CE00B1CCFA /* LaunchScreen.storyboard in Resources */,
 				44D64545287511F600B1CCFA /* MovieListView.xib in Resources */,
 				44D6451C287507CE00B1CCFA /* Assets.xcassets in Resources */,
@@ -210,6 +217,7 @@
 			files = (
 				44D645392875117B00B1CCFA /* LoginViewModel.swift in Sources */,
 				44D6453F287511DB00B1CCFA /* MovieListViewController.swift in Sources */,
+				44AAC96E287D018A004279BB /* MovieCell.swift in Sources */,
 				44D645362875113900B1CCFA /* LoginViewController.swift in Sources */,
 				44D64513287507CC00B1CCFA /* AppDelegate.swift in Sources */,
 				44D6454B2875121B00B1CCFA /* MovieDetailViewModel.swift in Sources */,
