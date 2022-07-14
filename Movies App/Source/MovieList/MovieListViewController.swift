@@ -12,16 +12,17 @@ class MovieListViewController: UIViewController {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
+    var movies = [Movie]()
     let customCellName: String = "MovieCell"
     let apiKey = "f0f843e7bb4dccaa26784708c2d59432"
-    let apiRequestExample = "https://api.themoviedb.org/3/movie/550?api_key=f0f843e7bb4dccaa26784708c2d59432"
-    let apiToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMGY4NDNlN2JiNGRjY2FhMjY3ODQ3MDhjMmQ1OTQzMiIsInN1YiI6IjYyY2NjZjM0ZTAwNGE2MDM0NmY2MmI4ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JL0ckNzS-C6mto5DKTLcEiw83B6ay7cQiGJ0vnt5HhQ"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         registerTableView(tableView: moviesTableView, identifier: customCellName)
         setUpTableView()
+        getPopularMovies()
     }
     
     // Registrando la TableView
@@ -41,14 +42,15 @@ class MovieListViewController: UIViewController {
 extension MovieListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 12
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: customCellName, for: indexPath) as! MovieCell
+        let movie = movies[indexPath.row]
         
         cell.movieImage.image = UIImage(systemName: "hand.thumbsup.fill")
-        cell.movieTitleLabel.text = "Your favorite movie"
+        cell.movieTitleLabel.text = movie.title ?? "Your favorite movie"
         
         return cell
     }
@@ -62,4 +64,19 @@ extension MovieListViewController: UITableViewDelegate {
         print("Has seleccionado la celda \(indexPath.row)")
     }
     
+}
+
+extension MovieListViewController {
+    
+    func getPopularMovies() {
+        let service = CallService(baseUrl: "https://api.themoviedb.org/3/")
+        service.getPopularMovieFrom(endPoint: "movie/popular")
+        service.completionHandler { (popularMovie, status, message) in
+            if status {
+                guard let _popularMovies = popularMovie else { return }
+                self.movies = _popularMovies.movies ?? []
+                self.moviesTableView.reloadData()
+            }
+        }
+    }
 }
