@@ -13,6 +13,9 @@ class MovieListViewController: UIViewController {
     @IBOutlet weak var moviesTableView: UITableView!
     
     let customCellName: String = "MovieCell"
+    let apiKey = "f0f843e7bb4dccaa26784708c2d59432"
+    let apiRequestExample = "https://api.themoviedb.org/3/movie/550?api_key=f0f843e7bb4dccaa26784708c2d59432"
+    let apiToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMGY4NDNlN2JiNGRjY2FhMjY3ODQ3MDhjMmQ1OTQzMiIsInN1YiI6IjYyY2NjZjM0ZTAwNGE2MDM0NmY2MmI4ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JL0ckNzS-C6mto5DKTLcEiw83B6ay7cQiGJ0vnt5HhQ"
     
     override func viewDidLoad() {
         super.viewDidLoad()
