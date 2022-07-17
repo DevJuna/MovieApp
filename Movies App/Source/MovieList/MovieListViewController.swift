@@ -35,6 +35,20 @@ class MovieListViewController: UIViewController {
     func setUpTableView() {
         self.moviesTableView.dataSource = self
         self.moviesTableView.delegate = self
+        self.moviesTableView.rowHeight = 90.0
+    }
+    
+    // Call Service
+    func getPopularMovies() {
+        let service = CallService(baseUrl: "https://api.themoviedb.org/3/movie/")
+        service.getPopularMovieFrom(endPoint: "popular")
+        service.popularMoviesCompletionHandler { (popularMovie, status, message) in
+            if status {
+                guard let _popularMovies = popularMovie else { return }
+                self.movies = _popularMovies.movies ?? []
+                self.moviesTableView.reloadData()
+            }
+        }
     }
     
 }
@@ -62,21 +76,10 @@ extension MovieListViewController: UITableViewDelegate {
     // Row selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Has seleccionado la celda \(indexPath.row)")
+        let movieData = movies[indexPath.row]
+        let movieDetail = MovieDetailViewController(data: movieData)
+        self.navigationController?.pushViewController(movieDetail, animated: true)
     }
     
 }
 
-extension MovieListViewController {
-    
-    func getPopularMovies() {
-        let service = CallService(baseUrl: "https://api.themoviedb.org/3/")
-        service.getPopularMovieFrom(endPoint: "movie/popular")
-        service.completionHandler { (popularMovie, status, message) in
-            if status {
-                guard let _popularMovies = popularMovie else { return }
-                self.movies = _popularMovies.movies ?? []
-                self.moviesTableView.reloadData()
-            }
-        }
-    }
-}
