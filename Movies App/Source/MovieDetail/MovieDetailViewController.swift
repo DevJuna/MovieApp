@@ -7,8 +7,17 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class MovieDetailViewController: UIViewController {
+    
+    @IBOutlet weak var backdropPathImage: UIImageView!
+    @IBOutlet weak var posterPathImage: UIImageView!
+    @IBOutlet weak var movieNameLabel: UILabel!
+    @IBOutlet weak var movieReleaseYearLabel: UILabel!
+    @IBOutlet weak var movieOriginalLanguageLabel: UILabel!
+    @IBOutlet weak var movieRatingLabel: UILabel!
+    
     
     let data: Movie
     
@@ -42,7 +51,23 @@ class MovieDetailViewController: UIViewController {
     }
     
     func setUpView(data: MovieDetail) {
-//        print(data)
+        if let path = data.backdropPath { setUpImage(path: path, ibImage: backdropPathImage) }
+        if let path = data.posterPath { setUpImage(path: path, ibImage: posterPathImage) }
+        movieNameLabel.text = data.originalTitle ?? String()
+        movieReleaseYearLabel.text = data.releaseDate ?? String()
+        movieOriginalLanguageLabel.text = data.originalLanguage ?? String()
+        movieRatingLabel.text = "\(data.voteAverage ?? 0.0)"
+
+    }
+    
+    func setUpImage(path: String, ibImage: UIImageView) {
+        let urlBase = "https://image.tmdb.org/t/p/w500"
+        
+        let urlString = "\(urlBase)\(path)"
+        let url = URL(string: urlString)
+        ibImage.kf.indicatorType = .activity
+        ibImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options: [.transition(.fade(0.5))])
+        
     }
     
 }
