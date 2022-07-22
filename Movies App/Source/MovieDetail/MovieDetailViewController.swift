@@ -18,7 +18,9 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var movieReleaseYearLabel: UILabel!
     @IBOutlet weak var movieOriginalLanguageLabel: UILabel!
     @IBOutlet weak var movieRatingLabel: UILabel!
-    
+    @IBOutlet weak var taglineLabel: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!    
+    @IBOutlet weak var separatorView: NSLayoutConstraint!
     
     let data: Movie
     
@@ -37,7 +39,7 @@ class MovieDetailViewController: UIViewController {
         title = data.title
         
         getMovieDetail()
-        addGradient(view: gradientView, frame: gradientView.bounds, colors: [.clear, .black])
+        addGradient(view: gradientView, frame: gradientView.bounds, colors: [.clear, UIColor(named: "#252833")!])
     }
     
     
@@ -59,7 +61,27 @@ class MovieDetailViewController: UIViewController {
         movieNameLabel.text = data.originalTitle ?? String()
         movieReleaseYearLabel.text = data.releaseDate ?? String()
         movieOriginalLanguageLabel.text = data.originalLanguage ?? String()
-        movieRatingLabel.text = "\(data.voteAverage ?? 0.0)"
+        movieRatingLabel.text = formatter(rating: data.voteAverage ?? 0.0)
+        taglineLabel.text = data.tagline?.uppercased() ?? String()
+        overviewLabel.text = data.overview ?? String()
+        separatorView.constant = 0.2
+    }
+    
+    func formatter(rating: Double) -> String {
+        switch rating {
+        case 0..<3:
+            return "Rating \(rating)   ⭐️"
+        case 3..<5:
+            return "Rating \(rating)   ⭐️⭐️"
+        case 5..<7:
+            return "Rating \(rating)   ⭐️⭐️⭐️"
+        case 7..<9:
+            return "Rating \(rating)   ⭐️⭐️⭐️⭐️"
+        case 9...10:
+            return "Rating \(rating)   ⭐️⭐️⭐️⭐️⭐️"
+        default:
+            return "No data"
+        }
     }
     
     func addGradient(view: UIView, frame:CGRect, colors: [UIColor]) {
@@ -67,3 +89,5 @@ class MovieDetailViewController: UIViewController {
     }
     
 }
+
+
