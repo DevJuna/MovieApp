@@ -63,7 +63,7 @@ extension MovieListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: customCellName, for: indexPath) as! MovieCell
         let movie = movies[indexPath.row]
         
-        cell.movieImage.image = UIImage(systemName: "hand.thumbsup.fill")
+        if let path = movie.posterPath { Tools.shared.setUpImage(path: path, ibImage: cell.movieImage) }
         cell.movieTitleLabel.text = movie.title ?? "Your favorite movie"
         
         return cell

@@ -27,6 +27,8 @@
 		44DD8444287FA28F0051E2B6 /* CallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DD8443287FA28F0051E2B6 /* CallService.swift */; };
 		44DD84472883768E0051E2B6 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DD84462883768E0051E2B6 /* MovieDetail.swift */; };
 		44DD844C288644590051E2B6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 44DD844B288644590051E2B6 /* Kingfisher */; };
+		44DD8452288A24E30051E2B6 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DD8451288A24E30051E2B6 /* Tools.swift */; };
+		44DD8455288A39570051E2B6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DD8454288A39570051E2B6 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		44DD8434287F959F0051E2B6 /* PopularMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovie.swift; sourceTree = "<group>"; };
 		44DD8443287FA28F0051E2B6 /* CallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallService.swift; sourceTree = "<group>"; };
 		44DD84462883768E0051E2B6 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
+		44DD8451288A24E30051E2B6 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		44DD8454288A39570051E2B6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,8 @@
 				44DD8434287F959F0051E2B6 /* PopularMovie.swift */,
 				44DD84462883768E0051E2B6 /* MovieDetail.swift */,
 				44DD8443287FA28F0051E2B6 /* CallService.swift */,
+				44DD8451288A24E30051E2B6 /* Tools.swift */,
+				44DD8454288A39570051E2B6 /* Extensions.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -244,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44DD8452288A24E30051E2B6 /* Tools.swift in Sources */,
 				44D645392875117B00B1CCFA /* LoginViewModel.swift in Sources */,
 				44D6453F287511DB00B1CCFA /* MovieListViewController.swift in Sources */,
 				44AAC96E287D018A004279BB /* MovieCell.swift in Sources */,
@@ -256,6 +263,7 @@
 				44D64515287507CC00B1CCFA /* SceneDelegate.swift in Sources */,
 				44D64542287511EB00B1CCFA /* MovieListViewModel.swift in Sources */,
 				44DD8444287FA28F0051E2B6 /* CallService.swift in Sources */,
+				44DD8455288A39570051E2B6 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
