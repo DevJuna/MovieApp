@@ -23,4 +23,22 @@ class Tools {
         ibImage.kf.indicatorType = .activity
         ibImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options: [.transition(.fade(0.5))])
     }
+    
+    //MARK: Date Formatter
+    
+    func formatter(date: String, from: String, to: String) -> String {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = from
+        
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = to
+        
+        if let date = dateFormatterGet.date(from: date) {
+            return dateFormatterPrint.string(from: date)
+        } else {
+            return "There was an error decoding the string"
+        }
+    }
+    
 }
+

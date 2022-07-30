@@ -20,9 +20,17 @@ class MovieListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpNavigationItem()
         registerTableView(tableView: moviesTableView, identifier: customCellName)
         setUpTableView()
         getPopularMovies()
+    }
+    
+    // SetUp NavigationItem (BackButton)
+    func setUpNavigationItem() {
+        let backItem = UIBarButtonItem()
+        backItem.title = String()
+        navigationItem.backBarButtonItem = backItem
     }
     
     // Registrando la TableView
@@ -77,7 +85,7 @@ extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Has seleccionado la celda \(indexPath.row)")
         let movieData = movies[indexPath.row]
-        let movieDetail = MovieDetailViewController(data: movieData)
+        let movieDetail = MovieDetailViewController(movieData: movieData)
         self.navigationController?.pushViewController(movieDetail, animated: true)
     }
     

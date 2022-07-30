@@ -16,16 +16,17 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var posterPathImage: UIImageView!
     @IBOutlet weak var movieNameLabel: UILabel!
     @IBOutlet weak var movieReleaseYearLabel: UILabel!
-    @IBOutlet weak var movieOriginalLanguageLabel: UILabel!
+    @IBOutlet weak var movieGeneralInfoLabel: UILabel!
     @IBOutlet weak var movieRatingLabel: UILabel!
     @IBOutlet weak var taglineLabel: UILabel!
-    @IBOutlet weak var overviewLabel: UILabel!    
-    @IBOutlet weak var separatorView: NSLayoutConstraint!
+    @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var MovieGenreLabel: UILabel!
     
-    let data: Movie
+    let movieData: Movie
+    var data: MovieDetail?
     
-    init(data: Movie) {
-        self.data = data
+    init(movieData: Movie) {
+        self.movieData = movieData
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,21 +37,37 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = data.title
-        
         getMovieDetail()
         addGradient(view: gradientView, frame: gradientView.bounds, colors: [.clear, UIColor(named: "#252833")!])
     }
     
+    func setUpNavigationItem() {
+        guard let homePage = data?.homepage else { return }
+        if !homePage.isEmpty {
+            let rightItem = UIBarButtonItem()
+            rightItem.image = UIImage(systemName: "square.and.arrow.up")
+            navigationItem.rightBarButtonItem = rightItem
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        }
+    }
+    
+    @objc func shareTapped() {
+        guard let homePage = data?.homepage else { return }
+        let vc = UIActivityViewController(activityItems: [homePage], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
     
     func getMovieDetail() {
         let service = CallService(baseUrl: "https://api.themoviedb.org/3/movie/")
-        guard let id = data.id else { return }
+        guard let id = movieData.id else { return }
         service.getMovieDetailWith(movieId: "\(id)")
         service.movieDetailCompletionHandler { (movieDetail, status, message) in
             if status {
                 guard let _movieDetail = movieDetail else { return }
+                self.data = _movieDetail
                 self.setUpView(data: _movieDetail)
+                self.setUpNavigationItem()
             }
         }
     }
@@ -59,12 +76,12 @@ class MovieDetailViewController: UIViewController {
         if let path = data.backdropPath { Tools.shared.setUpImage(path: path, ibImage: backdropPathImage) }
         if let path = data.posterPath { Tools.shared.setUpImage(path: path, ibImage: posterPathImage) }
         movieNameLabel.text = data.originalTitle ?? String()
-        movieReleaseYearLabel.text = data.releaseDate ?? String()
-        movieOriginalLanguageLabel.text = data.originalLanguage ?? String()
+        if let date = data.releaseDate { movieReleaseYearLabel.text = Tools.shared.formatter(date: date, from: "yyyy-MM-dd", to: "MMM dd, yyyy") }
+        if let language = data.originalLanguage, let runtime = data.runtime { movieGeneralInfoLabel.text = "\(language.capitalized)   •   \(runtime) mins" }
         movieRatingLabel.text = formatter(rating: data.voteAverage ?? 0.0)
-        taglineLabel.text = data.tagline?.uppercased() ?? String()
+        taglineLabel.text = data.tagline == nil || data.tagline == "" ? "SYNOPSIS" : data.tagline?.uppercased()
         overviewLabel.text = data.overview ?? String()
-        separatorView.constant = 0.2
+        getGenreList(data: data)
     }
     
     func formatter(rating: Double) -> String {
@@ -88,6 +105,15 @@ class MovieDetailViewController: UIViewController {
         view.addGradientLayer(frame: frame, colors: colors)
     }
     
+    func getGenreList(data: MovieDetail) {
+        var genresList = ""
+        guard let genres = data.genres else { return }
+        for genre in genres {
+            genresList += "\(genre.name!) • "
+        }
+        genresList.removeLast(3)
+        
+        MovieGenreLabel.text = genresList
+    }
+    
 }
-
-
