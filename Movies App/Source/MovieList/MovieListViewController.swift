@@ -20,17 +20,20 @@ class MovieListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpNavigationItem()
         registerTableView(tableView: moviesTableView, identifier: customCellName)
         setUpTableView()
         getPopularMovies()
     }
     
-    // SetUp NavigationItem (BackButton)
-    func setUpNavigationItem() {
-        let backItem = UIBarButtonItem()
-        backItem.title = String()
-        navigationItem.backBarButtonItem = backItem
+    //Hide NavigationBar
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     // Registrando la TableView
@@ -55,8 +58,22 @@ class MovieListViewController: UIViewController {
                 guard let _popularMovies = popularMovie else { return }
                 self.movies = _popularMovies.movies ?? []
                 self.moviesTableView.reloadData()
+            } else {
+                // TO-DO alert controller para mostrar error
+                self.showAlertControllerWith(title: "Error", message: message)
             }
         }
+    }
+    
+    //MARK: AlertController (Error message)
+    func showAlertControllerWith(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let reloadActionButton = UIAlertAction(title: "Reload", style: .default) { (_) in
+            self.getPopularMovies()
+        }
+        alertController.addAction(reloadActionButton)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
 }

@@ -12,6 +12,8 @@ import Kingfisher
 class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var backdropPathImage: UIImageView!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var posterPathImage: UIImageView!
     @IBOutlet weak var movieNameLabel: UILabel!
@@ -41,21 +43,15 @@ class MovieDetailViewController: UIViewController {
         addGradient(view: gradientView, frame: gradientView.bounds, colors: [.clear, UIColor(named: "#252833")!])
     }
     
-    func setUpNavigationItem() {
-        guard let homePage = data?.homepage else { return }
-        if !homePage.isEmpty {
-            let rightItem = UIBarButtonItem()
-            rightItem.image = UIImage(systemName: "square.and.arrow.up")
-            navigationItem.rightBarButtonItem = rightItem
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
-        }
+    //Hide NavigationBar
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    @objc func shareTapped() {
-        guard let homePage = data?.homepage else { return }
-        let vc = UIActivityViewController(activityItems: [homePage], applicationActivities: [])
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(vc, animated: true)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     func getMovieDetail() {
@@ -67,10 +63,48 @@ class MovieDetailViewController: UIViewController {
                 guard let _movieDetail = movieDetail else { return }
                 self.data = _movieDetail
                 self.setUpView(data: _movieDetail)
-                self.setUpNavigationItem()
+                self.setUpActionButton()
+            } else {
+                self.showAlertControllerWith(title: "ERROR", message: message)
             }
         }
     }
+    
+    //MARK: AlertController (Error message)
+    func showAlertControllerWith(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let reloadActionButton = UIAlertAction(title: "Reload", style: .cancel) { (_) in self.getMovieDetail() }
+        let okActionButton = UIAlertAction(title: "OK", style: .destructive) { (_) in self.navigationController?.popViewController(animated: true) }
+        
+        alertController.addAction(okActionButton)
+        alertController.addAction(reloadActionButton)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func setUpActionButton() {
+        backButton.isHidden = false
+        shareButton.isHidden = false
+        if data?.homepage == "" || data?.homepage == nil {
+            shareButton.isEnabled = false
+            shareButton.isHidden = true
+        }
+        backButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        backButton.layer.shadowOpacity = 1
+        shareButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        shareButton.layer.shadowOpacity = 1
+    }
+    
+    @IBAction func backActionButton(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func shareActionButton(_ sender: UIButton) {
+        guard let homePage = data?.homepage else { return }
+        let vc = UIActivityViewController(activityItems: [homePage], applicationActivities: [])
+        present(vc, animated: true)
+    }
+    
     
     func setUpView(data: MovieDetail) {
         if let path = data.backdropPath { Tools.shared.setUpImage(path: path, ibImage: backdropPathImage) }

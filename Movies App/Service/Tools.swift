@@ -25,7 +25,6 @@ class Tools {
     }
     
     //MARK: Date Formatter
-    
     func formatter(date: String, from: String, to: String) -> String {
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = from
@@ -41,4 +40,3 @@ class Tools {
     }
     
 }
-
