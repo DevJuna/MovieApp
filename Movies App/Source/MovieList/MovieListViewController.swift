@@ -20,9 +20,9 @@ class MovieListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getPopularMovies()
         registerTableView(tableView: moviesTableView, identifier: customCellName)
         setUpTableView()
-        getPopularMovies()
     }
     
     //Hide NavigationBar
@@ -51,16 +51,23 @@ class MovieListViewController: UIViewController {
     
     // Call Service
     func getPopularMovies() {
+        self.showSpinner()
         let service = CallService(baseUrl: "https://api.themoviedb.org/3/movie/")
         service.getPopularMovieFrom(endPoint: "popular")
         service.popularMoviesCompletionHandler { (popularMovie, status, message) in
             if status {
                 guard let _popularMovies = popularMovie else { return }
                 self.movies = _popularMovies.movies ?? []
-                self.moviesTableView.reloadData()
+                if self.movies.isEmpty {
+                    self.showAlertControllerWith(title: "Error", message: "We could not retrieve the data, please try again later")
+                } else {
+                    self.moviesTableView.reloadData()
+                }
+                self.hideSpinner()
             } else {
-                // TO-DO alert controller para mostrar error
+                // Alert controller para mostrar error
                 self.showAlertControllerWith(title: "Error", message: message)
+                self.hideSpinner()
             }
         }
     }

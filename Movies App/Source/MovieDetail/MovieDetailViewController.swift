@@ -54,7 +54,9 @@ class MovieDetailViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    // Call Service
     func getMovieDetail() {
+        self.showSpinner()
         let service = CallService(baseUrl: "https://api.themoviedb.org/3/movie/")
         guard let id = movieData.id else { return }
         service.getMovieDetailWith(movieId: "\(id)")
@@ -64,8 +66,10 @@ class MovieDetailViewController: UIViewController {
                 self.data = _movieDetail
                 self.setUpView(data: _movieDetail)
                 self.setUpActionButton()
+                self.hideSpinner()
             } else {
                 self.showAlertControllerWith(title: "ERROR", message: message)
+                self.hideSpinner()
             }
         }
     }
