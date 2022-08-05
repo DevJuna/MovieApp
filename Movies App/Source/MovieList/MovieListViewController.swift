@@ -106,7 +106,6 @@ extension MovieListViewController: UITableViewDelegate {
     
     // Row selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Has seleccionado la celda \(indexPath.row)")
         let movieData = movieViewModel[indexPath.row]
         let movieDetail = MovieDetailViewController(movieData: movieData)
         self.navigationController?.pushViewController(movieDetail, animated: true)
