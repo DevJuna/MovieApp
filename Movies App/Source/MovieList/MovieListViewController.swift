@@ -12,7 +12,7 @@ class MovieListViewController: UIViewController {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
-    var movies = [Movie]()
+    var movieViewModel = [MovieListViewModel]()
     let customCellName: String = "MovieCell"
     let apiKey = "f0f843e7bb4dccaa26784708c2d59432"
     
@@ -25,7 +25,7 @@ class MovieListViewController: UIViewController {
         setUpTableView()
     }
     
-    //Hide NavigationBar
+    //MARK: Hide NavigationBar
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -36,20 +36,19 @@ class MovieListViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    // Registrando la TableView
+    //MARK: Register TableView
     func registerTableView(tableView: UITableView, identifier: String) {
         let nib = UINib(nibName: identifier, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: identifier)
     }
     
-    // movieTableView = IBOulet. es de tipo UITableView, le estoy indicando que las ext dataSource y delegate las voy a manejar yo (voy a programar su funcionamiento)
     func setUpTableView() {
         self.moviesTableView.dataSource = self
         self.moviesTableView.delegate = self
         self.moviesTableView.rowHeight = 90.0
     }
     
-    // Call Service
+    //MARK: Call Service
     func getPopularMovies() {
         self.showSpinner()
         let service = CallService(baseUrl: "https://api.themoviedb.org/3/movie/")
@@ -57,8 +56,8 @@ class MovieListViewController: UIViewController {
         service.popularMoviesCompletionHandler { (popularMovie, status, message) in
             if status {
                 guard let _popularMovies = popularMovie else { return }
-                self.movies = _popularMovies.movies ?? []
-                if self.movies.isEmpty {
+                self.movieViewModel = _popularMovies.movies?.map({ return MovieListViewModel(movie: $0) }) ?? []
+                if self.movieViewModel.isEmpty {
                     self.showAlertControllerWith(title: "Error", message: "We could not retrieve the data, please try again later")
                 } else {
                     self.moviesTableView.reloadData()
@@ -88,15 +87,15 @@ class MovieListViewController: UIViewController {
 extension MovieListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return movieViewModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: customCellName, for: indexPath) as! MovieCell
-        let movie = movies[indexPath.row]
+        let movieViewModel = self.movieViewModel[indexPath.row]
         
-        if let path = movie.posterPath { Tools.shared.setUpImage(path: path, ibImage: cell.movieImage) }
-        cell.movieTitleLabel.text = movie.title ?? "Your favorite movie"
+        Tools.shared.setUpImage(path: movieViewModel.posterPath, ibImage: cell.movieImage)
+        cell.movieTitleLabel.text = movieViewModel.title
         
         return cell
     }
@@ -108,7 +107,7 @@ extension MovieListViewController: UITableViewDelegate {
     // Row selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Has seleccionado la celda \(indexPath.row)")
-        let movieData = movies[indexPath.row]
+        let movieData = movieViewModel[indexPath.row]
         let movieDetail = MovieDetailViewController(movieData: movieData)
         self.navigationController?.pushViewController(movieDetail, animated: true)
     }

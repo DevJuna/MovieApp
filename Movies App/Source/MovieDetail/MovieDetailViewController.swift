@@ -24,10 +24,10 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var MovieGenreLabel: UILabel!
     
-    let movieData: Movie
-    var data: MovieDetail?
+    let movieData: MovieListViewModel
+    var data: MovieDetailViewModel?
     
-    init(movieData: Movie) {
+    init(movieData: MovieListViewModel) {
         self.movieData = movieData
         super.init(nibName: nil, bundle: nil)
     }
@@ -43,7 +43,7 @@ class MovieDetailViewController: UIViewController {
         addGradient(view: gradientView, frame: gradientView.bounds, colors: [.clear, UIColor(named: "#252833")!])
     }
     
-    //Hide NavigationBar
+    //MARK:Hide NavigationBar
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -54,16 +54,16 @@ class MovieDetailViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    // Call Service
+    //MARK: Call Service
     func getMovieDetail() {
         self.showSpinner()
         let service = CallService(baseUrl: "https://api.themoviedb.org/3/movie/")
-        guard let id = movieData.id else { return }
-        service.getMovieDetailWith(movieId: "\(id)")
+//        guard let id = movieData.id else { return }
+        service.getMovieDetailWith(movieId: "\(movieData.id)")
         service.movieDetailCompletionHandler { (movieDetail, status, message) in
             if status {
                 guard let _movieDetail = movieDetail else { return }
-                self.data = _movieDetail
+                self.data = MovieDetailViewModel(movieDetail: _movieDetail)
                 self.setUpView(data: _movieDetail)
                 self.setUpActionButton()
                 self.hideSpinner()
@@ -82,14 +82,14 @@ class MovieDetailViewController: UIViewController {
         
         alertController.addAction(okActionButton)
         alertController.addAction(reloadActionButton)
-        
+
         present(alertController, animated: true, completion: nil)
     }
     
     func setUpActionButton() {
         backButton.isHidden = false
+        if data?.homepage == "" {
         shareButton.isHidden = false
-        if data?.homepage == "" || data?.homepage == nil {
             shareButton.isEnabled = false
             shareButton.isHidden = true
         }

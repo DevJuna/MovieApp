@@ -85,6 +85,8 @@
 				44D6452828750A1B00B1CCFA /* Config */,
 				44D6452A28750A4300B1CCFA /* Resources */,
 				44DD843A287F9F5C0051E2B6 /* Service */,
+				44DC5EE8289C2B9400425554 /* Model */,
+				44DC5EE9289C2E5200425554 /* ViewModel */,
 				44D6452F2875103900B1CCFA /* Source */,
 			);
 			path = "Movies App";
@@ -122,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				44D645472875120700B1CCFA /* MovieDetailViewController.swift */,
-				44D6454A2875121B00B1CCFA /* MovieDetailViewModel.swift */,
 				44D6454D2875122E00B1CCFA /* MovieDetailView.xib */,
 			);
 			path = MovieDetail;
@@ -132,7 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				44D6453E287511DB00B1CCFA /* MovieListViewController.swift */,
-				44D64541287511EB00B1CCFA /* MovieListViewModel.swift */,
 				44D64544287511F600B1CCFA /* MovieListView.xib */,
 				44AAC96C287D018A004279BB /* MovieCell.swift */,
 				44AAC96D287D018A004279BB /* MovieCell.xib */,
@@ -140,11 +140,27 @@
 			path = MovieList;
 			sourceTree = "<group>";
 		};
-		44DD843A287F9F5C0051E2B6 /* Service */ = {
+		44DC5EE8289C2B9400425554 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				44DD8434287F959F0051E2B6 /* PopularMovie.swift */,
 				44DD84462883768E0051E2B6 /* MovieDetail.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		44DC5EE9289C2E5200425554 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				44D64541287511EB00B1CCFA /* MovieListViewModel.swift */,
+				44D6454A2875121B00B1CCFA /* MovieDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		44DD843A287F9F5C0051E2B6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
 				44DD8443287FA28F0051E2B6 /* CallService.swift */,
 				44DD8451288A24E30051E2B6 /* Tools.swift */,
 				44DD8454288A39570051E2B6 /* Extensions.swift */,
