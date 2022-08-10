@@ -87,12 +87,7 @@ class MovieDetailViewController: UIViewController {
     }
     
     func setUpActionButton() {
-        backButton.isHidden = false
-        if data?.homepage == "" {
-        shareButton.isHidden = false
-            shareButton.isEnabled = false
-            shareButton.isHidden = true
-        }
+        shareButton.isHidden = data?.homepage == "" ? true : false
         backButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
         backButton.layer.shadowOpacity = 1
         shareButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
