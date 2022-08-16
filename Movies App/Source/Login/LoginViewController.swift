@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+//import FirebaseAuth - TO-DO
 
 class LoginViewController: UIViewController {
 
@@ -34,6 +35,10 @@ class LoginViewController: UIViewController {
 
     var isEnabledCAButton = false
     var isEnabledSIButton = false
+
+    private var caEmail: String = ""
+    private var caPassword: String = ""
+    private var caConfirmPassword: String = ""
 
     let validEmail = "Enter a valid email"
     let formatPassword = "The password must contain 8 to 20 characters, including an uppercase letter, a lowercase letter and a number"
@@ -106,18 +111,27 @@ class LoginViewController: UIViewController {
 
 
     @IBAction func validateCreateAccountTextFieldsChanged(_ sender: UITextField) {
-        let email = caEmailTextField.text ?? empty
-        let password1 = caPasswordTextField.text ?? empty
-        let password2 = caConfirmPasswordTextField.text ?? empty
+        caEmail = caEmailTextField.text ?? empty
+        caPassword = caPasswordTextField.text ?? empty
+        caConfirmPassword = caConfirmPasswordTextField.text ?? empty
 
-        setUpEmailImageAndLabel(email: email, image: caEmailImage, label: caEmailLabel, textInfo: validEmail)
-        setUpPasswordImageAndLabel(password: password1, image: caPasswordImage, label: caPasswordLabel, textInfo: formatPassword)
-        confirmPassword(password1: password1, password2: password2)
+        setUpEmailImageAndLabel(email: caEmail, image: caEmailImage, label: caEmailLabel, textInfo: validEmail)
+        setUpPasswordImageAndLabel(password: caPassword, image: caPasswordImage, label: caPasswordLabel, textInfo: formatPassword)
+        confirmPassword(password1: caPassword, password2: caConfirmPassword)
         caButton.isEnabled = isEnabledCAButton
     }
 
     @IBAction func caActionButton(_ sender: UIButton) {
-
+//        Auth.auth().createUser(withEmail: caEmail, password: caPassword) { (result, error) in
+            if true /* let result = result, error == nil */ { // - TO-DO
+                let vc = MovieListViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                //Ha ocurrido un error al crear el User
+                let error = /* error?.localizedDescription ?? */ "An error has ocurred, please try again" // - TO-DO
+                self.showToastWith(message: error)
+            }
+//        }
     }
 
 

@@ -6,17 +6,19 @@
 //
 
 import UIKit
+//import FirebaseCore - TO-DO
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barTintColor = UIColor(named: "#252833")
         UINavigationBar.appearance().tintColor = UIColor(named: "#C8C8C8")
-        
+
+        //Firebase
+//        FirebaseApp.configure() - TO-DO
         
         return true
     }

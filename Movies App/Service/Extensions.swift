@@ -41,5 +41,29 @@ extension UIViewController {
         loadingView?.removeFromSuperview()
         loadingView = nil
     }
+
+    func showToastWith(message: String) {
+            let toastView = UIView(frame: CGRect(x: 20, y: view.frame.height - 112, width: view.frame.width - 40, height: 68))
+            toastView.backgroundColor = UIColor(named: "#000000DE")
+            toastView.alpha = 1.0
+            toastView.layer.cornerRadius = 4
+            toastView.clipsToBounds = true
+
+            let toastLabel = UILabel(frame: CGRect(x: 16, y: 14, width: toastView.frame.width - 32, height: toastView.frame.height - 28))
+            toastLabel.textAlignment = .left
+            toastLabel.textColor = UIColor(named: "#FFFFFFDE")
+            toastLabel.font = UIFont(name: "Roboto-Regular", size: 14.0)
+            toastLabel.numberOfLines = 0
+            toastLabel.text = message
+
+            toastView.addSubview(toastLabel)
+            self.view.addSubview(toastView)
+
+            UIView.animate(withDuration: 2.0, delay: 4.0, options: .curveEaseInOut, animations: {
+                toastView.alpha = 0.0
+            }) { (isConpleted) in
+                toastView.removeFromSuperview()
+            }
+        }
     
 }
