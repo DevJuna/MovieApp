@@ -57,7 +57,7 @@ class CallService {
     func popularMoviesCompletionHandler(callBack: @escaping popularMoviesCallBack) {
         self.popularMoviesCallBack = callBack
     }
-   
+
     
     //MARK: GetMovieDetail
     func getMovieDetailWith(movieId: String) {

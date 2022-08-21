@@ -43,27 +43,37 @@ extension UIViewController {
     }
 
     func showToastWith(message: String) {
-            let toastView = UIView(frame: CGRect(x: 20, y: view.frame.height - 112, width: view.frame.width - 40, height: 68))
+            let toastView = UIView(frame: CGRect(x: 20, y: view.frame.height - 120, width: view.frame.width - 40, height: 72))
             toastView.backgroundColor = UIColor(named: "#000000DE")
             toastView.alpha = 1.0
             toastView.layer.cornerRadius = 4
             toastView.clipsToBounds = true
 
-            let toastLabel = UILabel(frame: CGRect(x: 16, y: 14, width: toastView.frame.width - 32, height: toastView.frame.height - 28))
+            let toastLabel = UILabel(frame: CGRect(x: 12, y: 6, width: toastView.frame.width - 24, height: toastView.frame.height - 12))
             toastLabel.textAlignment = .left
             toastLabel.textColor = UIColor(named: "#FFFFFFDE")
-            toastLabel.font = UIFont(name: "Roboto-Regular", size: 14.0)
+            toastLabel.font = UIFont(name: "AvenirNext-Regular", size: 14.0)
             toastLabel.numberOfLines = 0
             toastLabel.text = message
 
             toastView.addSubview(toastLabel)
             self.view.addSubview(toastView)
 
-            UIView.animate(withDuration: 2.0, delay: 4.0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 2.0, delay: 6.0, options: .curveEaseInOut, animations: {
                 toastView.alpha = 0.0
             }) { (isConpleted) in
                 toastView.removeFromSuperview()
             }
         }
+
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
 }

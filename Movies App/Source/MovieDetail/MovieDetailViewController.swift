@@ -58,7 +58,6 @@ class MovieDetailViewController: UIViewController {
     func getMovieDetail() {
         self.showSpinner()
         let service = CallService(baseUrl: "https://api.themoviedb.org/3/movie/")
-//        guard let id = movieData.id else { return }
         service.getMovieDetailWith(movieId: "\(movieData.id)")
         service.movieDetailCompletionHandler { (movieDetail, status, message) in
             if status {

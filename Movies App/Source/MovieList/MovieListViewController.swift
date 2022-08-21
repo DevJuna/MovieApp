@@ -7,11 +7,13 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class MovieListViewController: UIViewController {
     
     @IBOutlet weak var moviesTableView: UITableView!
-    
+    @IBOutlet weak var signOutButton: UIButton!
+
     var movieViewModel = [MovieListViewModel]()
     let customCellName: String = "MovieCell"
     let apiKey = "f0f843e7bb4dccaa26784708c2d59432"
@@ -19,7 +21,7 @@ class MovieListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         getPopularMovies()
         registerTableView(tableView: moviesTableView, identifier: customCellName)
         setUpTableView()
@@ -64,7 +66,6 @@ class MovieListViewController: UIViewController {
                 }
                 self.hideSpinner()
             } else {
-                // Alert controller para mostrar error
                 self.showAlertControllerWith(title: "Error", message: message)
                 self.hideSpinner()
             }
@@ -80,6 +81,15 @@ class MovieListViewController: UIViewController {
         alertController.addAction(reloadActionButton)
         
         present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func signOutActionButton(_ sender: UIButton) {
+        do {
+            try Auth.auth().signOut()
+            self.navigationController?.popViewController(animated: true)
+        } catch {
+            self.showToastWith(message: error.localizedDescription)
+        }
     }
     
 }
@@ -103,7 +113,7 @@ extension MovieListViewController: UITableViewDataSource {
 }
 
 extension MovieListViewController: UITableViewDelegate {
-    
+
     // Row selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movieData = movieViewModel[indexPath.row]

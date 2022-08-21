@@ -6,7 +6,8 @@
 //
 
 import UIKit
-//import FirebaseCore - TO-DO
+import FirebaseCore
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor(named: "#C8C8C8")
 
         //Firebase
-//        FirebaseApp.configure() - TO-DO
+        FirebaseApp.configure()
+        
+        //IQKeyboard
+        IQKeyboardManager.shared.enable = true
         
         return true
     }

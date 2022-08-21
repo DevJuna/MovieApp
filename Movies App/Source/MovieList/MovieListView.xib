@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MovieListViewController" customModule="Movies_App" customModuleProvider="target">
             <connections>
                 <outlet property="moviesTableView" destination="VfW-wz-NnN" id="BsQ-wo-wFR"/>
+                <outlet property="signOutButton" destination="AHN-Fh-hRu" id="VsO-fU-Nsa"/>
                 <outlet property="view" destination="iN0-l3-epB" id="W0e-Kc-Ksf"/>
             </connections>
         </placeholder>
@@ -25,21 +26,48 @@
                     <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmh-Q5-UiH">
+                    <rect key="frame" x="364" y="54" width="40" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHN-Fh-hRu">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <color key="tintColor" name="#AAAAAA"/>
+                            <state key="normal" image="power" catalog="system"/>
+                            <connections>
+                                <action selector="signOutActionButton:" destination="-1" eventType="touchUpInside" id="1Xn-TQ-zsL"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="AHN-Fh-hRu" firstAttribute="top" secondItem="Cmh-Q5-UiH" secondAttribute="top" id="7pF-BL-E4V"/>
+                        <constraint firstAttribute="bottom" secondItem="AHN-Fh-hRu" secondAttribute="bottom" id="JrP-sf-gi7"/>
+                        <constraint firstAttribute="width" constant="40" id="VA7-EY-mXc"/>
+                        <constraint firstItem="AHN-Fh-hRu" firstAttribute="leading" secondItem="Cmh-Q5-UiH" secondAttribute="leading" id="WvT-w4-oHk"/>
+                        <constraint firstAttribute="trailing" secondItem="AHN-Fh-hRu" secondAttribute="trailing" id="kRi-He-Jv6"/>
+                        <constraint firstAttribute="height" constant="40" id="vfK-OC-g00"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="#252833"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VfW-wz-NnN" secondAttribute="trailing" id="1cS-TF-EEk"/>
                 <constraint firstItem="VfW-wz-NnN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Gfr-Oo-yTb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Cmh-Q5-UiH" secondAttribute="trailing" constant="10" id="PLg-wS-Ayp"/>
                 <constraint firstItem="VfW-wz-NnN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="fAc-Ab-C7C"/>
+                <constraint firstItem="Cmh-Q5-UiH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="quf-HM-vzX"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="VfW-wz-NnN" secondAttribute="bottom" id="tWR-P4-VLO"/>
             </constraints>
             <point key="canvasLocation" x="-197" y="84"/>
         </view>
     </objects>
     <resources>
+        <image name="power" catalog="system" width="128" height="124"/>
         <namedColor name="#252833">
             <color red="0.097999997437000275" green="0.10999999940395355" blue="0.1289999932050705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="#AAAAAA">
+            <color red="0.66699999570846558" green="0.66699999570846558" blue="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

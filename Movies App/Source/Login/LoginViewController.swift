@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-//import FirebaseAuth - TO-DO
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
@@ -39,6 +39,8 @@ class LoginViewController: UIViewController {
     private var caEmail: String = ""
     private var caPassword: String = ""
     private var caConfirmPassword: String = ""
+    private var siEmail: String = ""
+    private var siPassword: String = ""
 
     let validEmail = "Enter a valid email"
     let formatPassword = "The password must contain 8 to 20 characters, including an uppercase letter, a lowercase letter and a number"
@@ -52,21 +54,28 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         setUpView()
+        setUpTextField()
+        hideKeyboardWhenTappedAround()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        clearCreateAccount()
+        clearSignIn()
     }
 
     func setUpView() {
         signInView.isHidden = false
         createAccountView.isHidden = true
 
-        clearCreateAccount()
         caButton.layer.cornerRadius = 6.0
         caButton.layer.borderWidth = 1.0
-        caButton.layer.borderColor = UIColor.lightGray.cgColor
+        caButton.layer.borderColor = UIColor.darkGray.cgColor
 
-        clearSignIn()
         siButton.layer.cornerRadius = 6.0
         siButton.layer.borderWidth = 1.0
-        siButton.layer.borderColor = UIColor.lightGray.cgColor
+        siButton.layer.borderColor = UIColor.darkGray.cgColor
     }
 
     @IBAction func segmentedControlAction(_ sender: UISegmentedControl) {
@@ -119,33 +128,46 @@ class LoginViewController: UIViewController {
         setUpPasswordImageAndLabel(password: caPassword, image: caPasswordImage, label: caPasswordLabel, textInfo: formatPassword)
         confirmPassword(password1: caPassword, password2: caConfirmPassword)
         caButton.isEnabled = isEnabledCAButton
+        caButton.layer.borderColor = isEnabledCAButton ? UIColor.lightGray.cgColor : UIColor.darkGray.cgColor
+        caButton.setTitleColor(isEnabledCAButton ? UIColor.lightGray : UIColor.darkGray, for: .normal)
     }
 
     @IBAction func caActionButton(_ sender: UIButton) {
-//        Auth.auth().createUser(withEmail: caEmail, password: caPassword) { (result, error) in
-            if true /* let result = result, error == nil */ { // - TO-DO
+        Auth.auth().createUser(withEmail: caEmail, password: caPassword) { (result, error) in
+            if error == nil {
                 let vc = MovieListViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             } else {
                 //Ha ocurrido un error al crear el User
-                let error = /* error?.localizedDescription ?? */ "An error has ocurred, please try again" // - TO-DO
+                let error = error?.localizedDescription ?? "An error has ocurred, please try again"
                 self.showToastWith(message: error)
             }
-//        }
+        }
     }
 
 
     @IBAction func validateSignInTextFieldsChanged(_ sender: UITextField) {
-        let email = siEmailTextField.text ?? empty
-        let password = siPasswordTextField.text ?? empty
+        siEmail = siEmailTextField.text ?? empty
+        siPassword = siPasswordTextField.text ?? empty
 
-        setUpEmailImageAndLabel(email: email, image: siEmailImage, label: siEmailLabel, textInfo: enterEmail)
-        setUpPasswordImageAndLabel(password: password, image: siPasswordImage, label: siPasswordLabel, textInfo: enterPassword)
+        setUpEmailImageAndLabel(email: siEmail, image: siEmailImage, label: siEmailLabel, textInfo: enterEmail)
+        setUpPasswordImageAndLabel(password: siPassword, image: siPasswordImage, label: siPasswordLabel, textInfo: enterPassword)
         siButton.isEnabled = isEnabledSIButton
+        siButton.layer.borderColor = isEnabledCAButton ? UIColor.lightGray.cgColor : UIColor.darkGray.cgColor
+        siButton.setTitleColor(isEnabledCAButton ? UIColor.lightGray : UIColor.darkGray, for: .normal)
     }
 
     @IBAction func siActionButton(_ sender: UIButton) {
-
+        Auth.auth().signIn(withEmail: siEmail, password: siPassword) { (result, error) in
+            if error == nil {
+                let vc = MovieListViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                //Ha ocurrido un error al hacer login
+                let error = error?.localizedDescription ?? "An error has ocurred, please try again"
+                self.showToastWith(message: error)
+            }
+        }
     }
 
 
@@ -220,6 +242,39 @@ class LoginViewController: UIViewController {
                 isEnabledCAButton = false
             }
         }
+    }
+
+}
+
+
+extension LoginViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case caEmailTextField:
+            caPasswordTextField.becomeFirstResponder()
+        case caPasswordTextField:
+            caConfirmPasswordTextField.becomeFirstResponder()
+        case siEmailTextField:
+            siPasswordTextField.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+
+    func setUpTextField() {
+        caEmailTextField.delegate = self
+        caPasswordTextField.delegate = self
+        caConfirmPasswordTextField.delegate = self
+        siEmailTextField.delegate = self
+        siPasswordTextField.delegate = self
+
+        caEmailTextField.textContentType = .oneTimeCode
+        caPasswordTextField.textContentType = .oneTimeCode
+        caConfirmPasswordTextField.textContentType = .oneTimeCode
+        siEmailTextField.textContentType = .oneTimeCode
+        siPasswordTextField.textContentType = .oneTimeCode
     }
 
 }

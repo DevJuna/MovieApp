@@ -6,7 +6,8 @@ target 'Movies App' do
   use_frameworks!
 
   # Pods for Movies App
-  # pod 'FirebaseAnalytics'
-  # pod 'Firebase/Auth'
+  pod 'FirebaseAnalytics'
+  pod 'Firebase/Auth'
+  pod 'IQKeyboardManagerSwift'
 
 end
