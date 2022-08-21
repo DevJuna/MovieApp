@@ -124,9 +124,9 @@ class LoginViewController: UIViewController {
         caPassword = caPasswordTextField.text ?? empty
         caConfirmPassword = caConfirmPasswordTextField.text ?? empty
 
-        setUpEmailImageAndLabel(email: caEmail, image: caEmailImage, label: caEmailLabel, textInfo: validEmail)
-        setUpPasswordImageAndLabel(password: caPassword, image: caPasswordImage, label: caPasswordLabel, textInfo: formatPassword)
-        confirmPassword(password1: caPassword, password2: caConfirmPassword)
+        sender.tag == 0 ? setUpEmailImageAndLabel(email: caEmail, image: caEmailImage, label: caEmailLabel, textInfo: validEmail) : nil
+        sender.tag == 1 ? setUpPasswordImageAndLabel(password: caPassword, image: caPasswordImage, label: caPasswordLabel, textInfo: formatPassword) : nil
+        sender.tag == 2 ? confirmPassword(password1: caPassword, password2: caConfirmPassword) : nil
         caButton.isEnabled = isEnabledCAButton
         caButton.layer.borderColor = isEnabledCAButton ? UIColor.lightGray.cgColor : UIColor.darkGray.cgColor
         caButton.setTitleColor(isEnabledCAButton ? UIColor.lightGray : UIColor.darkGray, for: .normal)
@@ -150,8 +150,8 @@ class LoginViewController: UIViewController {
         siEmail = siEmailTextField.text ?? empty
         siPassword = siPasswordTextField.text ?? empty
 
-        setUpEmailImageAndLabel(email: siEmail, image: siEmailImage, label: siEmailLabel, textInfo: enterEmail)
-        setUpPasswordImageAndLabel(password: siPassword, image: siPasswordImage, label: siPasswordLabel, textInfo: enterPassword)
+        sender.tag == 0 ? setUpEmailImageAndLabel(email: siEmail, image: siEmailImage, label: siEmailLabel, textInfo: enterEmail) : nil
+        sender.tag == 1 ? setUpPasswordImageAndLabel(password: siPassword, image: siPasswordImage, label: siPasswordLabel, textInfo: enterPassword) : nil
         siButton.isEnabled = isEnabledSIButton
         siButton.layer.borderColor = isEnabledCAButton ? UIColor.lightGray.cgColor : UIColor.darkGray.cgColor
         siButton.setTitleColor(isEnabledCAButton ? UIColor.lightGray : UIColor.darkGray, for: .normal)
@@ -208,7 +208,7 @@ class LoginViewController: UIViewController {
             isEnabledCAButton = false
             isEnabledSIButton = false
         } else {
-            if isValid(data: password, regex: "^(?=.[A-Z])(?=.[0-9])(?=.*[a-z]).{8,20}$") {
+            if isValid(data: password, regex: "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,20}$") {
                 image.image = UIImage(systemName: "checkmark.circle.fill")
                 image.tintColor = UIColor(named: "#40B617")
                 label.text = empty

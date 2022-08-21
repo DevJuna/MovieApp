@@ -103,7 +103,7 @@
                                         <constraint firstItem="0Ub-MW-vOe" firstAttribute="leading" secondItem="ucP-Pd-G6G" secondAttribute="trailing" constant="12" id="uUd-nJ-dbc"/>
                                     </constraints>
                                 </view>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PN6-rb-Z09">
+                                <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PN6-rb-Z09">
                                     <rect key="frame" x="0.0" y="114" width="388" height="42"/>
                                     <color key="backgroundColor" name="#CFCFCF"/>
                                     <constraints>
@@ -144,7 +144,7 @@
                                         <constraint firstItem="brt-D2-lHW" firstAttribute="top" secondItem="GhA-UF-zUF" secondAttribute="top" id="vqm-EM-pSn"/>
                                     </constraints>
                                 </view>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Eo8-JI-JQb">
+                                <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Eo8-JI-JQb">
                                     <rect key="frame" x="0.0" y="228" width="388" height="42"/>
                                     <color key="backgroundColor" name="#CFCFCF"/>
                                     <constraints>
@@ -273,7 +273,7 @@
                                         <constraint firstItem="dsW-wA-rJU" firstAttribute="leading" secondItem="Whp-nL-r3Y" secondAttribute="leading" id="rwZ-Js-Oqz"/>
                                     </constraints>
                                 </view>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ff3-F0-ES2">
+                                <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ff3-F0-ES2">
                                     <rect key="frame" x="0.0" y="112" width="388" height="42"/>
                                     <color key="backgroundColor" name="#CFCFCF"/>
                                     <constraints>
